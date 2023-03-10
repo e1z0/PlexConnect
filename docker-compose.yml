@@ -1,0 +1,14 @@
+version: '2.4'
+services:
+    plexconnect:
+        container_name: plexconnect
+        hostname: plexconnect
+        restart: unless-stopped
+        image: plexconnect:latest
+        environment:
+            PUID: 1001
+            PGID: 1001
+            TZ: "Europe/Vilnius"
+            PMS_HOST: "192.168.1.100"
+            PMS_PORT: "32400"
+            DNS_MASTER: "1.1.1.1"
