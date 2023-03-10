@@ -1,6 +1,10 @@
 #!/bin/bash
 
-cat > /app/Settings.cfg <<EOF
+if ! [ -d /app/conf ]; then
+mkdir /app/conf
+fi
+
+cat > /app/conf/Settings.cfg <<EOF
 [PlexConnect]
 enable_plexgdm = True
 ip_pms = $PMS_HOST
@@ -12,8 +16,8 @@ prevent_atv_update = True
 intercept_atv_icon = True
 enable_plexconnect_autodetect = True
 ip_plexconnect = 0.0.0.0
-use_custom_dns_bind_ip = False
-custom_dns_bind_ip = 0.0.0.0
+use_custom_dns_bind_ip = True
+custom_dns_bind_ip = $THIS_HOST
 hosttointercept = trailers.apple.com
 icon = movie-trailers
 certfile = ./assets/certificates/trailers.pem
@@ -28,7 +32,7 @@ loglevel = Normal
 logpath = .
 EOF
 
-cat > /app/ATVSettings.cfg <<EOF
+cat > /app/conf/ATVSettings.cfg <<EOF
 [DEFAULT]
 sharedlibrariesview = List
 showsynopsis = Hide
@@ -93,4 +97,4 @@ postertitles = Highlighted Only
 movies_navbar_genres = checked
 EOF
 
-/usr/local/bin/python2.7 /app/PlexConnect.py
+/usr/local/bin/python2.7 /app/PlexConnect.py --config_path /app/conf

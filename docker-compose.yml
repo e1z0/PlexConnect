@@ -5,10 +5,15 @@ services:
         hostname: plexconnect
         restart: unless-stopped
         image: plexconnect:latest
+        ports:
+            - 80:80
+            - 443:443
+            - 53:53/udp
         environment:
             PUID: 1001
             PGID: 1001
             TZ: "Europe/Vilnius"
-            PMS_HOST: "192.168.1.100"
+            THIS_HOST: "192.168.13.55"
+            PMS_HOST: "192.168.13.100"
             PMS_PORT: "32400"
             DNS_MASTER: "1.1.1.1"
